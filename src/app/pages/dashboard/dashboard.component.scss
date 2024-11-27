@@ -1,0 +1,75 @@
+.table-heading {
+  text-align: center;
+  margin-bottom: 8px;
+  margin-top: 32px;
+}
+
+.table-container {
+  width: 100%;
+  max-width: 80vw;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.task-table {
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .table-container {
+    width: 80%;
+  }
+}
+
+.add-task-line {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.add-task-button{
+  margin: auto 16px;
+}
+
+.card-content-center{
+  margin-top:10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+}
+
+.summary-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around; /* Adjust as per your layout preference */
+  gap: 20px; /* Adjust the gap between cards */
+}
+
+.summary-card {
+  width: calc(25% - 20px); /* Adjust width for responsiveness */
+  min-width: 150px; /* Minimum width for each card */
+  max-width: 300px; /* Maximum width for each card */
+  flex: 1 1 300px; /* Flex properties to allow wrapping */
+  text-align: center;
+  height: 125px;
+}
+
+@media screen and (max-width: 768px) {
+  .summary-card {
+    width: calc(50% - 20px); /* Two cards per row on smaller screens */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .summary-card {
+    width: 100%; /* One card per row on mobile */
+  }
+}
+
+.header-row{
+  display: inline-flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 auto 16px auto;
+}

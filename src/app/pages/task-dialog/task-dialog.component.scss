@@ -1,0 +1,16 @@
+
+.full-width {
+  width: calc(100% - 24px); /* Adjusted width with margin */
+  max-width: 600px; /* Example maximum width for the input fields */
+  margin: 0 auto; /* Center align horizontally */
+  box-sizing: border-box; /* Include padding and border in width calculation */
+}
+
+.full-width mat-form-field {
+  width: 100%;
+  padding-bottom: 1em;
+}
+
+.full-width input, .full-width mat-select {
+  width: 100%;
+}

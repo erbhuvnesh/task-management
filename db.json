@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "johndoe",
+      "password": "password123",
+      "name": "Bhuvnesh",
+      "email": "sample-mail@example.com",
+      "profilePicture": "profile1.jpg"
+    }
+  ],
+  "tasks": [
+  ]
+}

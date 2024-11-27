@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>Task</h1>
+<div mat-dialog-content class="full-width">
+  <form #taskForm="ngForm" (ngSubmit)="onSaveTask()" novalidate>
+    <mat-form-field>
+      <mat-label>Type</mat-label>
+      <mat-select name="type" [(ngModel)]="data.task.type" required>
+        <mat-option *ngFor="let type of taskTypes" [value]="type">{{ type }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput name="name" [(ngModel)]="data.task.name" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Date</mat-label>
+      <input matInput name="date" [(ngModel)]="data.task.date" type="date" required>
+    </mat-form-field>
+
+    
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [disabled]="!taskForm.valid" (click)="onSaveTask()">Save</button>
+</div>
