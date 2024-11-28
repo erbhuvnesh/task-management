@@ -10,5 +10,16 @@
     }
   ],
   "tasks": [
+    {
+      "id": "d2d4",
+      "userId": 1,
+      "title": "higygig",
+      "description": "kjfutghiugg i iyhiu oiguh bbb",
+      "status": "inprogress",
+      "priority": "high",
+      "dueDate": "2024-12-29T00:00:00.000Z",
+      "created": "2024-11-28T15:18:50.723Z",
+      "lastupdated": "2024-11-28T15:23:07.931Z"
+    }
   ]
 }

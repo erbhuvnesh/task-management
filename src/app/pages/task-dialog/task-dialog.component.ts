@@ -1,8 +1,6 @@
-// src/app/pages/task-dialog/task-dialog.component.ts
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Task } from '../../models/task.model';
-import { TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'app-task-dialog',
@@ -10,29 +8,40 @@ import { TaskService } from '../../services/task.service';
   styleUrls: ['./task-dialog.component.scss']
 })
 export class TaskDialogComponent implements OnInit {
-  minDate : string;
+  minDate: string;
+  dueDateInput: string;
 
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { task: Task },
-    private taskService: TaskService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.minDate = new Date().toISOString().split('T')[0]; // Format to 'YYYY-MM-DD'
+    // Set the minimum date to today
+    this.minDate = new Date().toISOString().split('T')[0];
+
+    // Initialize the due date field for the input, or leave it blank if not set
+    this.dueDateInput = this.data.task.dueDate
+      ? new Date(this.data.task.dueDate).toISOString().split('T')[0]
+      : '';
   }
 
-
-
   onSaveTask(): void {
-    console.log('onSaveTask called');
-    
-    this.data.task.created = this.data.task.created || new Date();
-    this.data.task.lastupdated = new Date();
+    // Ensure dueDate is formatted properly
+    this.data.task.dueDate = this.dueDateInput ? new Date(this.dueDateInput).toISOString() : '';
+
+    // Set created and lastupdated timestamps
+    if (!this.data.task.created) {
+      this.data.task.created = new Date().toISOString(); // Set created only if it's a new task
+    }
+    this.data.task.lastupdated = new Date().toISOString(); // Always update lastupdated timestamp
+
+    // Pass the updated task data back to the parent component
     this.dialogRef.close(this.data.task);
   }
 
   onNoClick(): void {
+    // Close the dialog without saving changes
     this.dialogRef.close();
   }
 }

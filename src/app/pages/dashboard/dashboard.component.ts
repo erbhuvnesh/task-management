@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
 
   tasks: Task[] = [];
   userId: number = 1; // Assuming logged-in user ID is 1 for this example
-  displayedColumns: string[] = [];
+  displayedColumns: string[] = ['title', 'description', 'status', 'priority', 'dueDate', 'actions'];
   dataSource: MatTableDataSource<Task>;
   taskCategories: string[] = [];
   topExpenditure: { category: string; amount: number; }
@@ -34,7 +34,12 @@ export class DashboardComponent implements OnInit {
   }
 
   loadTasks(): void {
-
+    this.taskService.getTasks(this.userId).subscribe((data: Task[]) => {
+      this.tasks = data;
+      this.dataSource.data = this.tasks;
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    });
   }
 
   addTask(): void {
@@ -48,6 +53,7 @@ export class DashboardComponent implements OnInit {
       if (result) {
         this.taskService.addTask(result).subscribe(res => {
           console.log("Task created successfully");
+          this.loadTasks();
         })
       }
     });
@@ -62,8 +68,9 @@ export class DashboardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.taskService.updateTask(task).subscribe(res => {
+        this.taskService.updateTask(result).subscribe(res => {
           console.log("Task updated successfully");
+          this.loadTasks();
         })
       }
     });
@@ -72,6 +79,7 @@ export class DashboardComponent implements OnInit {
   deleteTask(id: string): void {
     this.taskService.deleteTask(id).subscribe(res=>{
       console.log("Task Deleted")
+      this.loadTasks();
     })
   }
 
