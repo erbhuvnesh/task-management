@@ -1,8 +1,11 @@
 export interface Task {
-  id?: number;
-  type: string;
-  name: string;
-  date: string;
-  amount: number;
-  currency: string;
+  id: string;
+  userid: string;
+  title: string;
+  description: string;
+  status: string;
+  priority: string;
+  dueDate: string;
+  created: string;
+  lastupdated: string;
 }

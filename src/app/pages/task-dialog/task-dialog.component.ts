@@ -11,7 +11,7 @@ import { TaskService } from '../../services/task.service';
 })
 export class TaskDialogComponent implements OnInit {
   taskTypes: string[] = [];
-  currencies: string[] = [];
+  minDate : string;
 
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
@@ -20,7 +20,7 @@ export class TaskDialogComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    this.minDate = new Date().toISOString().split('T')[0]; // Format to 'YYYY-MM-DD'
   }
 
 

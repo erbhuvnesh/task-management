@@ -6,11 +6,26 @@
   box-sizing: border-box; /* Include padding and border in width calculation */
 }
 
-.full-width mat-form-field {
+.full-width .full-form-field {
   width: 100%;
   padding-bottom: 1em;
 }
 
-.full-width input, .full-width mat-select {
+.half-div{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.full-width .half-form-field {
+  width: 45%;
+  min-width: 120px;
+  padding-bottom: 1em;
+}
+
+.full-width input {
   width: 100%;
+}
+
+.half-form-field mat-select{
+  width: 100%
 }

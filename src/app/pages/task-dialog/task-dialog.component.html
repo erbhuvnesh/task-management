@@ -1,27 +1,92 @@
 <h1 mat-dialog-title>Task</h1>
 <div mat-dialog-content class="full-width">
   <form #taskForm="ngForm" (ngSubmit)="onSaveTask()" novalidate>
-    <mat-form-field>
-      <mat-label>Type</mat-label>
-      <mat-select name="type" [(ngModel)]="data.task.type" required>
-        <mat-option *ngFor="let type of taskTypes" [value]="type">{{ type }}</mat-option>
-      </mat-select>
+    <!-- Title Field -->
+    <mat-form-field class="full-form-field">
+      <mat-label>Title</mat-label>
+      <input
+        matInput
+        name="title"
+        [(ngModel)]="data.task['title']"
+        required
+        placeholder="Give a title to your task (Max 50 characters)"
+      />
+      <mat-error
+        *ngIf="
+          taskForm.form.controls['title']?.invalid &&
+          taskForm.form.controls['title']?.touched
+        "
+      >
+        Title is required.
+      </mat-error>
     </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Name</mat-label>
-      <input matInput name="name" [(ngModel)]="data.task.name" required>
+    <!-- Description Field -->
+    <mat-form-field appearance="outline" class="full-form-field">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        name="description"
+        [(ngModel)]="data.task['description']"
+        required
+        placeholder="Enter description (Max 250 characters)"
+      ></textarea>
+      <mat-error
+        *ngIf="
+          taskForm.form.controls['description']?.invalid &&
+          taskForm.form.controls['description']?.touched
+        "
+      >
+        Description is required.
+      </mat-error>
     </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Date</mat-label>
-      <input matInput name="date" [(ngModel)]="data.task.date" type="date" required>
-    </mat-form-field>
+    <div class="half-div">
+      <!-- Status Field -->
+      <mat-form-field appearance="fill" class="half-form-field">
+        <mat-label>Status</mat-label>
+        <mat-select name="status" [(ngModel)]="data.task['status']" required>
+          <mat-option value="todo">To Do</mat-option>
+          <mat-option value="inprogress">In Progress</mat-option>
+          <mat-option value="done">Done</mat-option>
+        </mat-select>
+        <mat-error
+          *ngIf="
+            taskForm.form.controls['status']?.invalid &&
+            taskForm.form.controls['status']?.touched
+          "
+        >
+          Status is required.
+        </mat-error>
+      </mat-form-field>
 
-    
+      <!-- Priority Field -->
+      <mat-form-field appearance="fill" class="half-form-field">
+        <mat-label>Priority</mat-label>
+        <mat-select name="priority" [(ngModel)]="data.task['priority']">
+          <mat-option value="low">Low</mat-option>
+          <mat-option value="medium">Medium</mat-option>
+          <mat-option value="high">High</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- Due Date Field -->
+    <mat-form-field class="full-form-field">
+      <mat-label>Due Date</mat-label>
+      <input
+        matInput
+        name="dueDate"
+        [(ngModel)]="data.task['dueDate']"
+        type="date"
+        [min]="minDate"
+      />
+    </mat-form-field>
   </form>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [disabled]="!taskForm.valid" (click)="onSaveTask()">Save</button>
+  <button mat-raised-button color="primary" [disabled]="!taskForm.valid" (click)="onSaveTask()">
+    Save
+  </button>
 </div>
