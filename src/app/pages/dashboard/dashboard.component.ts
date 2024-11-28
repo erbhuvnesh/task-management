@@ -46,7 +46,9 @@ export class DashboardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-
+        this.taskService.addTask(result).subscribe(res => {
+          console.log("Task created successfully");
+        })
       }
     });
   }
@@ -60,13 +62,17 @@ export class DashboardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-
+        this.taskService.updateTask(task).subscribe(res => {
+          console.log("Task updated successfully");
+        })
       }
     });
   }
 
-  deleteTask(id: number): void {
-
+  deleteTask(id: string): void {
+    this.taskService.deleteTask(id).subscribe(res=>{
+      console.log("Task Deleted")
+    })
   }
 
 }

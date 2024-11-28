@@ -10,14 +10,16 @@
         [(ngModel)]="data.task['title']"
         required
         placeholder="Give a title to your task (Max 50 characters)"
+        maxlength="50"
       />
+      <mat-hint align="end">{{ data.task["title"]?.length || 0 }}/50</mat-hint>
       <mat-error
         *ngIf="
           taskForm.form.controls['title']?.invalid &&
           taskForm.form.controls['title']?.touched
         "
       >
-        Title is required.
+        Title is required and should be within 50 characters.
       </mat-error>
     </mat-form-field>
 
@@ -30,14 +32,18 @@
         [(ngModel)]="data.task['description']"
         required
         placeholder="Enter description (Max 250 characters)"
+        maxlength="250"
       ></textarea>
+      <mat-hint align="end"
+        >{{ data.task["description"]?.length || 0 }}/250</mat-hint
+      >
       <mat-error
         *ngIf="
           taskForm.form.controls['description']?.invalid &&
           taskForm.form.controls['description']?.touched
         "
       >
-        Description is required.
+        Description is required and should be within 250 characters.
       </mat-error>
     </mat-form-field>
 
@@ -86,7 +92,12 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-raised-button color="primary" [disabled]="!taskForm.valid" (click)="onSaveTask()">
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!taskForm.valid"
+    (click)="onSaveTask()"
+  >
     Save
   </button>
 </div>

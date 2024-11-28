@@ -10,7 +10,6 @@ import { TaskService } from '../../services/task.service';
   styleUrls: ['./task-dialog.component.scss']
 })
 export class TaskDialogComponent implements OnInit {
-  taskTypes: string[] = [];
   minDate : string;
 
   constructor(
@@ -26,6 +25,10 @@ export class TaskDialogComponent implements OnInit {
 
 
   onSaveTask(): void {
+    console.log('onSaveTask called');
+    
+    this.data.task.created = this.data.task.created || new Date();
+    this.data.task.lastupdated = new Date();
     this.dialogRef.close(this.data.task);
   }
 
