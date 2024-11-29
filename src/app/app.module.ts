@@ -17,7 +17,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatExpansionModule} from '@angular/material/expansion';
-import {MatChipsModule} from '@angular/material/chips';
+import {MatMenuModule} from '@angular/material/menu';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -62,7 +62,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     MatSnackBarModule,
     MatExpansionModule,
-    MatChipsModule,
+    MatMenuModule,
 
     StoreDevtoolsModule.instrument({
       maxAge: 25,
