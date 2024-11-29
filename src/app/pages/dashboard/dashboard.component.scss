@@ -132,3 +132,10 @@
 .mat-column-title{
   font-weight: 550;
 }
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}

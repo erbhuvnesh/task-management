@@ -6,7 +6,7 @@
       <mat-label>Search Tasks</mat-label>
       <input
         matInput
-        placeholder="Search by title, status, or priority"
+        placeholder="Search by title"
         (input)="applyFilter($event)"
       />
     </mat-form-field>
@@ -52,17 +52,25 @@
 
       <!-- Expand Button -->
       <ng-container matColumnDef="expand">
-        <th mat-header-cell *matHeaderCellDef></th>
+        <th mat-header-cell *matHeaderCellDef> Action / Expand</th>
         <td mat-cell *matCellDef="let task">
-          <button mat-icon-button (click)="toggleRow(task)">
-            <mat-icon>{{ expandedTask === task ? 'expand_less' : 'expand_more' }}</mat-icon>
-          </button>
+          <div class="action-buttons">
+            <button mat-icon-button (click)="editTask(task)" color="primary" matTooltip="Edit Task">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteTask(task.id)" color="warn" matTooltip="Delete Task">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button (click)="toggleRow(task)" matTooltip="Expand/Collapse Details">
+              <mat-icon>{{ expandedTask === task ? 'expand_less' : 'expand_more' }}</mat-icon>
+            </button>
+          </div>
         </td>
       </ng-container>
 
       <!-- Expanded Detail Column -->
       <ng-container matColumnDef="expandedDetail">
-        <td mat-cell *matCellDef="let task" [hidden]="expandedTask !== task">
+        <td mat-cell *matCellDef="let task" [hidden]="expandedTask !== task" colspan="5">
           <div class="expanded-content">
             <p><strong>Description:</strong> {{ task.description }}</p>
             <p><strong>Created:</strong> {{ task.created | date }}</p>

@@ -37,9 +37,7 @@ export class DashboardComponent implements OnInit, OnChanges {
     this.dataSource.filterPredicate = (task: Task, filter: string) => {
       const lowerFilter = filter.trim().toLowerCase();
       return (
-        task.title?.toLowerCase().includes(lowerFilter) ||
-        task.status.toLowerCase().includes(lowerFilter) ||
-        task.priority.toLowerCase().includes(lowerFilter)
+        task.title?.toLowerCase().includes(lowerFilter) || false
       );
     };
   }
