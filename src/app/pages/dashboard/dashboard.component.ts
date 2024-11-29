@@ -12,45 +12,31 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, OnChanges {
+export class DashboardComponent implements OnInit{
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   tasks: Task[] = [];
   userId: number = 1; // Assuming logged-in user ID is 1 for this example
   displayedColumns: string[] = ['title', 'status', 'priority', 'dueDate', 'expand'];
-  dataSource: MatTableDataSource<Task>;
-  taskCategories: string[] = [];
-  topExpenditure: { category: string; amount: number; }
-  filteredTasks: Task[] = []
+  filteredTasks: MatTableDataSource<Task>;
   expandedTask: Task | null = null;
   searchQuery: string = '';
   statusOptions: string[] = ['todo', 'inprogress', 'done'];
+  statusFilters = {
+    todo: true,
+    inProgress: true,
+    done: true,
+  };
 
   constructor(private taskService: TaskService, public dialog: MatDialog) {
-    this.dataSource = new MatTableDataSource(this.tasks);
+    this.filteredTasks = new MatTableDataSource<Task>([]);
    }
 
    ngOnInit(): void {
     this.loadTasks();
-
-    // Configure filter predicate for custom filtering
-    this.dataSource.filterPredicate = (task: Task, filter: string) => {
-      const lowerFilter = filter.trim().toLowerCase();
-      return (
-        task.title?.toLowerCase().includes(lowerFilter) || false
-      );
-    };
   }
 
-   // Filter tasks by search query
-   ngOnChanges(): void {
-    this.filteredTasks = this.tasks.filter((task) =>
-      [task.title]
-        .map((field) => field?.toLowerCase())
-        .some((field) => field?.includes(this.searchQuery.toLowerCase()))
-    );
-  }
 
   // Expand/Collapse a row
   toggleRow(task: Task): void {
@@ -60,24 +46,30 @@ export class DashboardComponent implements OnInit, OnChanges {
   loadTasks(): void {
     this.taskService.getTasks(1).subscribe((data: Task[]) => {
       this.tasks = data;
-      this.dataSource = new MatTableDataSource(this.tasks);
-
-      // Assign paginator and sort to data source
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      this.filteredTasks.data = this.tasks; // Initialize with all tasks
+      this.filteredTasks.paginator = this.paginator; // Connect paginator
+      this.filteredTasks.sort = this.sort; // Connect sorting
+      // this.updateTableData();
     });
   }
 
-  // Apply filter when search query changes
-  applyFilter(event: Event): void {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    // Reset to first page if filter applied
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+
+  applyFilters(): void {
+    // Apply search and status filters
+    const filtered = this.tasks.filter((task) => {
+      const searchMatch = task.title?.toLowerCase().includes(this.searchQuery.trim().toLowerCase());
+      const statusMatch =
+        (this.statusFilters.todo && task.status === 'todo') ||
+        (this.statusFilters.inProgress && task.status === 'inprogress') ||
+        (this.statusFilters.done && task.status === 'done');
+
+      return searchMatch && statusMatch;
+    });
+
+    this.filteredTasks.data = filtered; // Update the data source
   }
+
 
   addTask(): void {
     const dialogRef = this.dialog.open(TaskDialogComponent, {

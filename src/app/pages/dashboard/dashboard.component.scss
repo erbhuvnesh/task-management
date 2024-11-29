@@ -148,3 +148,10 @@
 .mat-menu-item{
   width: 120px
 }
+
+.filter-status{
+  display: flex;
+  justify-content: flex-end;
+  width: 90%;
+  gap: 16px;
+}
