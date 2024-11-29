@@ -1,67 +1,98 @@
-<div class="header-row">
-  <h2>Dashboard</h2>
-  <div class="add-task-line">
-    <button mat-raised-button color="primary" class="add-task-button" (click)="addTask()"><mat-icon>add</mat-icon>Add Task</button>
+<div class="content">
+  <!-- Search Filter -->
+  <div class="filters">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-icon matPrefix>search</mat-icon>
+      <mat-label>Search Tasks</mat-label>
+      <input
+        matInput
+        placeholder="Search by title, status, or priority"
+        (input)="applyFilter($event)"
+      />
+    </mat-form-field>
   </div>
-</div>
 
-<div class="summary-cards">
-  <!-- Summary Cards -->
-  <mat-card class="summary-card">
-    <mat-card-header>
-      <mat-card-title>Total Number of Tasks</mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="card-content-center">
-      <h1>{{ tasks.length }}</h1>
-    </mat-card-content>
-  </mat-card>
+  <!-- Table -->
+  <div class="table-container">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      matSort
+      multiTemplateDataRows
+      class="mat-elevation-z8 responsive-table"
+    >
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+        <td mat-cell *matCellDef="let task">{{ task.title }}</td>
+      </ng-container>
 
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let task">
+          <mat-icon [class]="getStatusIconClass(task.status)"></mat-icon>
+          {{ task.status }}
+        </td>
+      </ng-container>
 
-  <!-- more summary cards as needed -->
-</div>
+      <!-- Priority Column -->
+      <ng-container matColumnDef="priority">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Priority</th>
+        <td mat-cell *matCellDef="let task">
+          <mat-chip [color]="getPriorityColor(task.priority)">{{ task.priority }}</mat-chip>
+        </td>
+      </ng-container>
 
+      <!-- Due Date Column -->
+      <ng-container matColumnDef="dueDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Due Date</th>
+        <td mat-cell *matCellDef="let task">{{ task.dueDate | date }}</td>
+      </ng-container>
 
-<!-- Table Section -->
-<h2 class="table-heading">All Tasks</h2>
-<div class="table-container">
-  <table mat-table [dataSource]="dataSource" matSort class="task-table">
-    <!-- Columns -->
-    <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
-      <td mat-cell *matCellDef="let task">{{ task.title }}</td>
-    </ng-container>
-    <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
-      <td mat-cell *matCellDef="let task">{{ task.description }}</td>
-    </ng-container>
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-      <td mat-cell *matCellDef="let task">{{ task.status }}</td>
-    </ng-container>
-    <ng-container matColumnDef="priority">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Priority</th>
-      <td mat-cell *matCellDef="let task">{{ task.priority }}</td>
-    </ng-container>
-    <ng-container matColumnDef="dueDate">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Due Date</th>
-      <td mat-cell *matCellDef="let task">{{ task.dueDate }}</td>
-    </ng-container>
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
-      <td mat-cell *matCellDef="let task">
-        <button mat-icon-button (click)="editTask(task)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button (click)="deleteTask(task.id)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
+      <!-- Expand Button -->
+      <ng-container matColumnDef="expand">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let task">
+          <button mat-icon-button (click)="toggleRow(task)">
+            <mat-icon>{{ expandedTask === task ? 'expand_less' : 'expand_more' }}</mat-icon>
+          </button>
+        </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+      <!-- Expanded Detail Column -->
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let task" [hidden]="expandedTask !== task">
+          <div class="expanded-content">
+            <p><strong>Description:</strong> {{ task.description }}</p>
+            <p><strong>Created:</strong> {{ task.created | date }}</p>
+            <p><strong>Last Updated:</strong> {{ task.lastupdated | date }}</p>
+            <div class="task-actions">
+              <button mat-raised-button color="primary" (click)="editTask(task)">Edit</button>
+              <button mat-raised-button color="warn" (click)="deleteTask(task.id)">Delete</button>
+            </div>
+          </div>
+        </td>
+      </ng-container>
 
-  <!-- Pagination -->
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      <!-- Header Row -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <!-- Data Row -->
+      <tr mat-row *matRowDef="let task; columns: displayedColumns"></tr>
+      <!-- Expanded Detail Row -->
+      <tr mat-row *matRowDef="let task; columns: ['expandedDetail']"></tr>
+    </table>
+  </div>
+
+  <!-- Paginator -->
+  <mat-paginator
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 20]"
+    aria-label="Select page"
+    class="mat-elevation-z0 paginator"
+  ></mat-paginator>
+
+  <button mat-fab color="primary" class="add-task-button" (click)="addTask()">
+    <mat-icon>add</mat-icon>
+  </button>
 </div>
