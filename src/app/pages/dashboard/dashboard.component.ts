@@ -53,6 +53,7 @@ export class DashboardComponent implements OnInit {
     done: true,
   };
   noData: boolean = true;
+  noFilteredData: boolean = false;
 
   constructor(
     private taskService: TaskService,
@@ -100,6 +101,11 @@ export class DashboardComponent implements OnInit {
     });
 
     this.filteredTasks.data = filtered; // Update the data source
+    if(filtered.length == 0){
+      this.noFilteredData = true;
+    }else{
+      this.noFilteredData = false;
+    }
   }
 
   addTask(): void {

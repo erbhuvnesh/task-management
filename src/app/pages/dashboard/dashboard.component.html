@@ -40,7 +40,7 @@
   </div>
 
   <!-- Table -->
-  <div class="table-container" *ngIf="!noData">
+  <div class="table-container" *ngIf="!noData && filteredTasks.filteredData.length>0">
     <table
       mat-table
       [dataSource]="filteredTasks"
@@ -171,6 +171,14 @@
         ></tr>
       </ng-container>
     </table>
+  </div>
+
+  <div *ngIf="filteredTasks.filteredData.length === 0 && !noData" class="no-data-container">
+    <mat-card class="no-data-card">
+      <mat-card-content>
+        <p>No tasks found matching your filter criteria.</p>
+      </mat-card-content>
+    </mat-card>
   </div>
 
   <!-- Paginator -->
