@@ -126,6 +126,8 @@
     position: fixed;
     bottom: 48px;
     right: 20px;
+    z-index: 100;
+    transition: all 0.3s ease;
   }
 }
 
@@ -205,4 +207,45 @@
 
 tr.expanded-detail-row{
   height: 0;
+}
+
+.no-data-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  height: 60vh;
+}
+
+.no-data-card {
+  width: 80%;
+  max-width: 500px;
+  padding: 20px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+
+/* Highlight Animation for the Add Button */
+@keyframes highlightAnimation {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px 8px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+
+/* Animation Class for Highlight */
+.add-task-button.highlight {
+  animation: highlightAnimation 1s ease-out;
 }

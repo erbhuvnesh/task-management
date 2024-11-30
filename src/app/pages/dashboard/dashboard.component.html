@@ -1,7 +1,7 @@
 <h2 style="margin: 0 16px">Dashboard</h2>
 <div class="content">
   <!-- Search Filter -->
-  <div class="filters">
+  <div class="filters" *ngIf="!noData">
     <mat-form-field appearance="outline" style="width: 50%; margin: 0 auto">
       <mat-label>Search</mat-label>
       <mat-icon matPrefix>search</mat-icon>
@@ -14,8 +14,16 @@
     </mat-form-field>
   </div>
 
+  <div *ngIf="noData" class="no-data-container">
+    <mat-card class="no-data-card">
+      <mat-card-content>
+        <h2>No Tasks Found</h2>
+        <p>It seems you don't have any tasks. Start by creating a new task!</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
   <!-- Filter options for status -->
-  <div class="filter-status">
+  <div class="filter-status" *ngIf="!noData">
     <span style="font-weight: 500; margin-right: 16px">View : </span>
     <mat-checkbox [(ngModel)]="statusFilters.todo" (change)="applyFilters()">
       To Do
@@ -32,7 +40,7 @@
   </div>
 
   <!-- Table -->
-  <div class="table-container">
+  <div class="table-container" *ngIf="!noData">
     <table
       mat-table
       [dataSource]="filteredTasks"
@@ -112,10 +120,7 @@
             >
               <mat-icon>delete</mat-icon>
             </button>
-            <button
-              mat-icon-button
-              matTooltip="Expand/Collapse Details"
-            >
+            <button mat-icon-button matTooltip="Expand/Collapse Details">
               <mat-icon>{{
                 expandedTask === task ? "expand_less" : "expand_more"
               }}</mat-icon>
@@ -159,8 +164,11 @@
         (click)="toggleRow(task)"
       ></tr>
       <ng-container [class.hidden]="expandedTask">
-        <tr mat-row *matRowDef="let task; columns: ['expandedDetail']"
-        class="expanded-detail-row"></tr>
+        <tr
+          mat-row
+          *matRowDef="let task; columns: ['expandedDetail']"
+          class="expanded-detail-row"
+        ></tr>
       </ng-container>
     </table>
   </div>
@@ -171,9 +179,17 @@
     [pageSizeOptions]="[5, 10, 20]"
     aria-label="Select page"
     class="mat-elevation-z0 paginator"
+    *ngIf="!noData"
   ></mat-paginator>
 
-  <button mat-fab color="primary" class="add-task-button" (click)="addTask()">
+  <button
+    mat-fab
+    color="primary"
+    class="add-task-button"
+    (click)="addTask()"
+    [@buttonHighlight]="noData ? 'highlight' : 'idle'"
+    matTooltip="Create a new task"
+  >
     <mat-icon>add</mat-icon>
   </button>
 </div>

@@ -8,11 +8,27 @@ import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ConfirmationDialogComponent } from "../confirmation-dialog/confirmation-dialog.component";
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
   styleUrls: ["./dashboard.component.scss"],
+  animations: [
+    trigger('buttonHighlight', [
+      state('idle', style({
+        transform: 'scale(1)',
+        boxShadow: 'none'
+      })),
+      state('highlight', style({
+        transform: 'scale(1.1)',
+        boxShadow: '0 0 10px 8px rgba(0, 0, 0, 0.2)'
+      })),
+      transition('idle <=> highlight', [
+        animate('1s ease-out')
+      ]),
+    ]),
+  ]
 })
 export class DashboardComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
@@ -36,6 +52,7 @@ export class DashboardComponent implements OnInit {
     inProgress: true,
     done: true,
   };
+  noData: boolean = true;
 
   constructor(
     private taskService: TaskService,
@@ -56,11 +73,15 @@ export class DashboardComponent implements OnInit {
 
   loadTasks(): void {
     this.taskService.getTasks(this.userId).subscribe((data: Task[]) => {
+      if(data.length == 0){
+        this.noData = true;
+        return;
+      }
+      this.noData = false;
       this.tasks = data;
       this.filteredTasks.data = this.tasks; // Initialize with all tasks
       this.filteredTasks.paginator = this.paginator; // Connect paginator
       this.filteredTasks.sort = this.sort; // Connect sorting
-      // this.updateTableData();
     });
   }
 
