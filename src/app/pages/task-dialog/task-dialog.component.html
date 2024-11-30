@@ -8,19 +8,23 @@
         matInput
         name="title"
         [(ngModel)]="data.task['title']"
+        [appTitleExistsValidator]="existingTitles"
         required
         placeholder="Give a title to your task (Max 50 characters)"
         maxlength="50"
+        #title="ngModel"
       />
-      <mat-hint align="end">{{ data.task["title"]?.length || 0 }}/50</mat-hint>
-      <mat-error
-        *ngIf="
-          taskForm.form.controls['title']?.invalid &&
-          taskForm.form.controls['title']?.touched
-        "
-      >
-        Title is required and should be within 50 characters.
-      </mat-error>
+      <mat-hint align="end">{{ data.task['title']?.length || 0 }}/50</mat-hint>
+    <mat-error *ngIf="title.errors?.['titleExists']">
+      This title already exists. Please choose a different one.
+    </mat-error>
+    <mat-error
+      *ngIf="
+        title.errors?.['required'] && title.touched
+      "
+    >
+      Title is required
+    </mat-error>
     </mat-form-field>
 
     <!-- Description Field -->

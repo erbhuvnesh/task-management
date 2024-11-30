@@ -30,6 +30,7 @@ import { FooterComponent } from "./layout/footer/footer.component";
 import { DashboardComponent } from "./pages/dashboard/dashboard.component";
 import { TaskDialogComponent } from "./pages/task-dialog/task-dialog.component";
 import { HttpClientModule } from "@angular/common/http";
+import { TitleExistsValidatorDirective } from './title-exists-validator.directive';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { HttpClientModule } from "@angular/common/http";
     FooterComponent,
     DashboardComponent,
     TaskDialogComponent,
+    TitleExistsValidatorDirective,
   ],
   imports: [
     BrowserModule,

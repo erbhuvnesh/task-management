@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   tasks: Task[] = [];
-  userId: number = 1; // Assuming logged-in user ID is 1 for this example
+  userId: string = '674afbfd2b1bf3af4c42592e'; // Hardcoding userId for a user stored in database for this example, needs additional implementation to fetch userId dynamically for logined user
   displayedColumns: string[] = ['title', 'status', 'priority', 'dueDate', 'expand'];
   filteredTasks: MatTableDataSource<Task>;
   expandedTask: Task | null = null;
@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit{
   }
 
   loadTasks(): void {
-    this.taskService.getTasks(1).subscribe((data: Task[]) => {
+    this.taskService.getTasks(this.userId).subscribe((data: Task[]) => {
       this.tasks = data;
       this.filteredTasks.data = this.tasks; // Initialize with all tasks
       this.filteredTasks.paginator = this.paginator; // Connect paginator
