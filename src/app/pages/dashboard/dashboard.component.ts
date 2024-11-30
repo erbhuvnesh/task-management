@@ -198,6 +198,17 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  // to get number of days left for due date
+  getDueDays(dueDate){
+    const today = new Date();
+    const dueDateObj = new Date(dueDate);
+
+    const timeDifference = dueDateObj.getTime() - today.getTime();
+    const daysRemaining = Math.ceil(timeDifference / (1000 * 3600 * 24)); // Convert ms to days
+    
+    return daysRemaining-1;
+  }
+
   // Get button styles based on status
   getStatusButtonStyles(status: string): { [key: string]: string } {
     switch (status) {

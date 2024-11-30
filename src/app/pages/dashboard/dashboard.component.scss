@@ -168,6 +168,14 @@
   border-radius: 8px;
   background-color: #fafafa;
   margin: 16px 0;
+  flex-wrap: wrap;
+}
+
+.expanded-content > .due-date-line {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px; 
+  color: #cc0000
 }
 
 .description-box {
