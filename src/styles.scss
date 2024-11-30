@@ -4,6 +4,11 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .green-snackbar {
-  background-color: #4caf50;
+  background-color: #029802;
+  color: #ffffff;
+}
+
+.red-snackbar {
+  background-color: #cc0000;
   color: #ffffff;
 }
