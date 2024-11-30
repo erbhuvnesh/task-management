@@ -90,6 +90,7 @@ export class DashboardComponent implements OnInit{
   }
 
   editTask(task: Task): void {
+    event.stopPropagation();
     const dialogRef = this.dialog.open(TaskDialogComponent, {
       minWidth: '250px',
       width: '40vw',
@@ -107,6 +108,7 @@ export class DashboardComponent implements OnInit{
   }
 
   deleteTask(id: string | null): void {
+    event.stopPropagation();
     if(!id){return};
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '300px',
@@ -127,11 +129,11 @@ export class DashboardComponent implements OnInit{
 getStatusButtonStyles(status: string): { [key: string]: string } {
   switch (status) {
     case 'todo':
-      return { backgroundColor: '#fafafa', border: '1px solid #5d6d7e' };
+      return { backgroundColor: '#fafafa', border: '1px solid #5d6d7e', 'z-index':'100' };
     case 'inprogress':
-      return { backgroundColor: '#fbe9e7', border: '1px solid #ff9800' };
+      return { backgroundColor: '#fbe9e7', border: '1px solid #ff9800', 'z-index':'100' };
     case 'done':
-      return { backgroundColor: '#d5f5e3', border: '1px solid #2e7d32' };
+      return { backgroundColor: '#d5f5e3', border: '1px solid #2e7d32', 'z-index':'100' };
     default:
       return {};
   }
@@ -174,6 +176,7 @@ updateTaskStatus(task: Task, newStatus: string): void {
 
 // Toggle status options (placeholder if additional logic needed)
 toggleStatusOptions(task: Task): void {
+  event.stopPropagation();
   console.log('Status options opened for:', task);
 }
 

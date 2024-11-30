@@ -202,3 +202,7 @@
   margin: 0;
   word-wrap: break-word; /* Ensures long text wraps properly */
 }
+
+tr.expanded-detail-row{
+  height: 0;
+}

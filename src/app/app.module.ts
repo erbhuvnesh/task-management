@@ -32,6 +32,7 @@ import { TaskDialogComponent } from "./pages/task-dialog/task-dialog.component";
 import { HttpClientModule } from "@angular/common/http";
 import { TitleExistsValidatorDirective } from './title-exists-validator.directive';
 import { ConfirmationDialogComponent } from './pages/confirmation-dialog/confirmation-dialog.component';
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { ConfirmationDialogComponent } from './pages/confirmation-dialog/confirm
     MatListModule,
     MatDialogModule,
     MatTableModule,
+    MatTooltipModule,
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
