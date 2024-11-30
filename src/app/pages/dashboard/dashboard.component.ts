@@ -6,6 +6,7 @@ import { TaskDialogComponent } from '../task-dialog/task-dialog.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -107,10 +108,19 @@ export class DashboardComponent implements OnInit{
 
   deleteTask(id: string | null): void {
     if(!id){return};
-    this.taskService.deleteTask(id).subscribe(res=>{
-      console.log("Task Deleted")
-      this.loadTasks();
-    })
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '300px',
+      data: { message: 'Are you sure you want to delete this task?' },
+    });
+  
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.taskService.deleteTask(id).subscribe((res) => {
+          console.log('Task Deleted');
+          this.loadTasks();
+        });
+      }
+    });
   }
 
   // Get button styles based on status

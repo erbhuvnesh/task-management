@@ -31,6 +31,7 @@ import { DashboardComponent } from "./pages/dashboard/dashboard.component";
 import { TaskDialogComponent } from "./pages/task-dialog/task-dialog.component";
 import { HttpClientModule } from "@angular/common/http";
 import { TitleExistsValidatorDirective } from './title-exists-validator.directive';
+import { ConfirmationDialogComponent } from './pages/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { TitleExistsValidatorDirective } from './title-exists-validator.directiv
     DashboardComponent,
     TaskDialogComponent,
     TitleExistsValidatorDirective,
+    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,
