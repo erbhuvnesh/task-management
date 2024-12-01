@@ -4,8 +4,8 @@ export interface Task {
   title: string | null;
   description: string | null;
   status: string;
-  priority: string;
+  priority: string | null;
   dueDate: string | null;
-  created: string;
-  lastupdated: string;
+  created: string | null;
+  lastupdated: string | null;
 }

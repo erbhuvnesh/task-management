@@ -206,7 +206,7 @@ export class DashboardComponent implements OnInit {
     const timeDifference = dueDateObj.getTime() - today.getTime();
     const daysRemaining = Math.ceil(timeDifference / (1000 * 3600 * 24)); // Convert ms to days
     
-    return daysRemaining-1;
+    return daysRemaining;
   }
 
   // Get button styles based on status

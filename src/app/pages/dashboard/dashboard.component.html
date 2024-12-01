@@ -152,8 +152,9 @@
               </p>
             </div>
             <div class="due-date-line" *ngIf="task.dueDate">
-              <h3 *ngIf="getDueDays(task.dueDate)>=0">* Due in {{getDueDays(task.dueDate)}} days *</h3>
+              <h3 *ngIf="getDueDays(task.dueDate)>0">* Due in {{getDueDays(task.dueDate)}} days *</h3>
               <h3 *ngIf="getDueDays(task.dueDate)<0"><strong>* Due Date Over *</strong></h3>
+              <h3 *ngIf="getDueDays(task.dueDate)==0"><strong>* Due Today *</strong></h3>
             </div>
           </div>
         </td>
