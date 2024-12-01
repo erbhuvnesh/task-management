@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { TaskService } from "../../services/task.service";
 import { Task } from "../../models/task.model";
 import { MatDialog } from "@angular/material/dialog";

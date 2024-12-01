@@ -193,7 +193,7 @@
     [pageSizeOptions]="[5, 10, 20]"
     aria-label="Select page"
     class="mat-elevation-z0 paginator"
-    *ngIf="!noData"
+    [hidden]="noData"
   ></mat-paginator>
 
   <button
