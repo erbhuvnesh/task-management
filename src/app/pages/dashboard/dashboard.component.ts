@@ -217,19 +217,16 @@ export class DashboardComponent implements OnInit {
         return {
           backgroundColor: "#fafafa",
           border: "1px solid #5d6d7e",
-          "z-index": "100",
         };
       case "inprogress":
         return {
           backgroundColor: "#fbe9e7",
           border: "1px solid #ff9800",
-          "z-index": "100",
         };
       case "done":
         return {
           backgroundColor: "#d5f5e3",
           border: "1px solid #2e7d32",
-          "z-index": "100",
         };
       default:
         return {};

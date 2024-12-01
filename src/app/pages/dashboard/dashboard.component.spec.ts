@@ -194,7 +194,6 @@ fdescribe('DashboardComponent', () => {
     expect(component.getStatusButtonStyles('todo')).toEqual({
       backgroundColor: '#fafafa',
       border: '1px solid #5d6d7e',
-      'z-index': '100',
     });
   });
   
@@ -202,7 +201,6 @@ fdescribe('DashboardComponent', () => {
     expect(component.getStatusButtonStyles('inprogress')).toEqual({
       backgroundColor: '#fbe9e7',
       border: '1px solid #ff9800',
-      'z-index': '100',
     });
   });
   
@@ -210,7 +208,6 @@ fdescribe('DashboardComponent', () => {
     expect(component.getStatusButtonStyles('done')).toEqual({
       backgroundColor: '#d5f5e3',
       border: '1px solid #2e7d32',
-      'z-index': '100',
     });
   });
   
