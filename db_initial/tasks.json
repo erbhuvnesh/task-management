@@ -1,0 +1,86 @@
+[{
+    "_id": {
+      "$oid": "674b58b82791af3ce62499ee"
+    },
+    "userId": {
+      "$oid": "674afbfd2b1bf3af4c42592e"
+    },
+    "title": "task1",
+    "description": "task1 description",
+    "status": "todo",
+    "priority": "medium",
+    "dueDate": null,
+    "created": {
+      "$date": "2024-11-30T18:26:00.133Z"
+    },
+    "lastupdated": {
+      "$date": "2024-11-30T18:54:25.969Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "674bdaa20a6e464f2528b677"
+    },
+    "userId": {
+      "$oid": "674afbfd2b1bf3af4c42592e"
+    },
+    "title": "Finish unit testing",
+    "description": "unit test for angular app",
+    "status": "inprogress",
+    "priority": "medium",
+    "dueDate": {
+      "$date": "2024-12-01T00:00:00.000Z"
+    },
+    "created": {
+      "$date": "2024-12-01T03:40:18.379Z"
+    },
+    "lastupdated": {
+      "$date": "2024-12-01T05:39:05.393Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "674bf649a3b01dd0913e0dba"
+    },
+    "userId": {
+      "$oid": "674afbfd2b1bf3af4c42592e"
+    },
+    "title": "Create Frontend",
+    "description": "Create an angular application for task management",
+    "status": "done",
+    "priority": "high",
+    "dueDate": {
+      "$date": "2024-12-02T00:00:00.000Z"
+    },
+    "created": {
+      "$date": "2024-12-01T05:38:17.138Z"
+    },
+    "lastupdated": {
+      "$date": "2024-12-01T05:38:17.138Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "674bf66ca3b01dd0913e0dbe"
+    },
+    "userId": {
+      "$oid": "674afbfd2b1bf3af4c42592e"
+    },
+    "title": "Create backend",
+    "description": "Sample task to create a backend",
+    "status": "inprogress",
+    "priority": "medium",
+    "dueDate": {
+      "$date": "2024-12-02T00:00:00.000Z"
+    },
+    "created": {
+      "$date": "2024-12-01T05:38:52.007Z"
+    },
+    "lastupdated": {
+      "$date": "2024-12-01T05:38:52.007Z"
+    },
+    "__v": 0
+  }]
