@@ -34,14 +34,7 @@ export class TaskService {
     return this.http.get<Task[]>(url);
   }
 
-  isTitleExist(title: string): Observable<boolean>{
-    return this.http.get<any[]>(this.apiUrl, {
-      params: { title: title } // Pass the title as a query parameter
-    }).pipe(
-      map(tasks => tasks.length > 0) // If any tasks are found, it means the title exists
-    );
-  }
-
+  // Get list of all existing titles to validate
   getTitlesList(): Observable<string[]>{
     return this.http.get<string[]>(this.apiUrl+'/all');
   }

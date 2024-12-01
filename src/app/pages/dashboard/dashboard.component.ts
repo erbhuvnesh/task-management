@@ -72,6 +72,7 @@ export class DashboardComponent implements OnInit {
     this.expandedTask = this.expandedTask === task ? null : task;
   }
 
+  // Function to load tasks on dashboard, fetches all tasks and sets MatTableDatasource to latest fetched tasks
   loadTasks(): void {
     this.taskService.getTasks(this.userId).subscribe((data: Task[]) => {
       if(data.length == 0){
